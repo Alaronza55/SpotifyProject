@@ -9,7 +9,8 @@ client_id = "2d9971b26c3a4aba8668dc3b80159fb6"
 client_secret = "95ac5748cc6b4272b02789bec4f5d1cb"
 redirect_uri = "http://localhost:8888/callback"
 scope = "playlist-modify-private"
-playlist_id = "4PnNhaIDL3kU5QcFeJJSgK"
+playlist_id = "5EfFPgq5HFjjhMM0OWfxFO"
+
 
 # Authenticate with Spotify API
 scope = "playlist-modify-public"
@@ -35,6 +36,13 @@ duplicate_ids = []
 track_names = set()
 duplicate_names = []
 
+track_artists = set()
+duplicate_artists = []
+
+track_uris = set()
+duplicate_uri = []
+
+
 # Create list of tracks and concatenate them
 for track in tracks:
     track_id = track["track"]["id"]
@@ -55,13 +63,29 @@ for track in tracks:
     else:
         track_names.add(track_name)
 
+    if track_uri in track_uris:
+        duplicate_uri.append(track)
+    else:
+        track_uris.add(track_name)
+    
+    if artist_name in track_artists:
+        duplicate_artists.append(track)
+    else:
+        track_artists.add(track_name)
+
+
+# for track in duplicate_names : 
+#     track_dname = track["track"]["name"]
+
+#     print (track_dname)
+
 def remove_duplicates_id() :
     # Remove duplicate tracks from the playlist
     for track in duplicate_ids:
         sp.playlist_remove_all_occurrences_of_items(playlist_id, [track['track']['uri']])
 
-    for track in duplicate_ids:
-        sp.playlist_add_items(playlist_id, [track['track']['uri']])
+    # for track in duplicate_ids:
+    #     sp.playlist_add_items(playlist_id, [track['track']['uri']])
         
 remove_duplicates_id()
 
@@ -70,7 +94,27 @@ def remove_duplicates_name() :
     for track in duplicate_names:
         sp.playlist_remove_all_occurrences_of_items(playlist_id, [track['track']['uri']])
 
-    for track in duplicate_names:
-        sp.playlist_add_items(playlist_id, [track['track']['uri']])
+    # for track in duplicate_names:
+    #     sp.playlist_add_items(playlist_id, [track['track']['uri']])
         
 remove_duplicates_name()
+
+def remove_duplicates_uri() :
+    # Remove duplicate tracks from the playlist
+    for track in duplicate_uri:
+        sp.playlist_remove_all_occurrences_of_items(playlist_id, [track['track']['uri']])
+
+    # for track in duplicate_uri:
+    #     sp.playlist_add_items(playlist_id, [track['track']['uri']])
+
+# remove_duplicates_uri()
+
+def remove_duplicates_artists() :
+    # Remove duplicate tracks from the playlist
+    for track in duplicate_artists	:
+        sp.playlist_remove_all_occurrences_of_items(playlist_id, [track['track']['uri']])
+
+    # for track in duplicate_artists:
+    #     sp.playlist_add_items(playlist_id, [track['track']['uri']])
+
+# remove_duplicates_artists()
