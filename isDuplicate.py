@@ -28,6 +28,11 @@ while results['next']:
     tracks.extend(results['items'])
 
 
+# Create a set of track IDs to identify duplicates
+track_ids = set()
+duplicate_tracks = []
+
+
 # Create list of tracks and concatenate them
 for track in tracks:
     track_id = track["track"]["id"]
@@ -36,17 +41,17 @@ for track in tracks:
     artist_name = artist_info['name']
     track_uri = track['track']["uri"]
 
-    # print(track_id)
+
+    # Check if the track ID is already in the set
+    if track_id in track_ids:
+        duplicate_tracks.append(track)
+    else:
+        track_ids.add(track_id)
+
+
+# print(track_ids)
+
+# Remove duplicate tracks from the playlist
+for track in duplicate_tracks:
+    sp.playlist_remove_all_occurrences_of_items(playlist_id, [track['track']['uri']])
     
-    # wDuplicates = set([track_id])
-
-    # print(wDuplicates)
-
-    duplicates = []
-
-
-    for id in track_id:
-        if track_id.count(id) > 1 and id not in duplicates:
-            duplicates.append(id)
-
-    print(duplicates)
