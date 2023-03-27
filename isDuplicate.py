@@ -48,13 +48,17 @@ for track in tracks:
     else:
         track_ids.add(track_id)
 
+    if track_name in track_ids:
+        duplicate_tracks.append(track)
+    else:
+        track_ids.add(track_id)
 
-# print(track_ids)
+def remove_duplicates_id() :
+    # Remove duplicate tracks from the playlist
+    for track in duplicate_tracks:
+        sp.playlist_remove_all_occurrences_of_items(playlist_id, [track['track']['uri']])
 
-# Remove duplicate tracks from the playlist
-for track in duplicate_tracks:
-    sp.playlist_remove_all_occurrences_of_items(playlist_id, [track['track']['uri']])
-
-for track in duplicate_tracks:
-    sp.playlist_add_items(playlist_id, [track['track']['uri']])
-    
+    for track in duplicate_tracks:
+        sp.playlist_add_items(playlist_id, [track['track']['uri']])
+        
+remove_duplicates_id()
