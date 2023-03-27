@@ -54,4 +54,7 @@ for track in tracks:
 # Remove duplicate tracks from the playlist
 for track in duplicate_tracks:
     sp.playlist_remove_all_occurrences_of_items(playlist_id, [track['track']['uri']])
+
+for track in duplicate_tracks:
+    sp.playlist_add_items(playlist_id, [track['track']['uri']])
     
