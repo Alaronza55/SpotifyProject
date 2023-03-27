@@ -38,7 +38,15 @@ for track in tracks:
 
     # print(track_id)
     
-    wDuplicates = set([track_id])
+    # wDuplicates = set([track_id])
 
-    print(wDuplicates)
+    # print(wDuplicates)
 
+    duplicates = []
+
+
+    for id in track_id:
+        if track_id.count(id) > 1 and id not in duplicates:
+            duplicates.append(id)
+
+    print(duplicates)
