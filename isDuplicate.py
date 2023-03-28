@@ -40,8 +40,12 @@ for track in tracks:
     # print (artist_name)
     
     merged = '_'.join([track_id]+[track_name]+[artist_name])
+    
+    new_list = [merged]
 
-    print(merged) 
+    new = list(set(new_list))
+
+    print(new)
 
     # duplicates = []
     
